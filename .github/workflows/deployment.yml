@@ -1,4 +1,4 @@
-name: Docker Build and Push
+name: Docker Build and Push with GitOps Deployment
 
 on:
   push:
@@ -36,3 +36,24 @@ jobs:
         push: true
         tags: |
           ${{ secrets.DOCKER_USERNAME }}/node-application:${{ github.sha }}
+
+    # Update Kubernetes manifests using yq
+    - name: Install yq
+      run: |
+        sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
+        sudo chmod +x /usr/local/bin/yq
+
+    - name: Update Kubernetes Manifests
+      run: |
+        yq eval ".spec.template.spec.containers[0].image = \"${{ secrets.DOCKER_USERNAME }}/node-application:${{ github.sha }}\"" -i k8s/deployment.yaml
+
+    # Commit and push updated manifests to the GitOps repo
+    - name: Commit and Push Manifests
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git add k8s/deployment.yaml
+        git commit -m "Update image to ${{ secrets.DOCKER_USERNAME }}/node-application:${{ github.sha }}"
+        git push origin main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
