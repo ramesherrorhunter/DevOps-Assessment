@@ -43,12 +43,12 @@ jobs:
         sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
         sudo chmod +x /usr/local/bin/yq
 
-    - name: Update Kubernetes Manifests
+    - name: Update GitOps
       run: |
         yq eval ".spec.template.spec.containers[0].image = \"${{ secrets.DOCKER_USERNAME }}/node-application:${{ github.sha }}\"" -i k8s/Deployment.yaml
 
     # Commit and push updated manifests to the GitOps repo
-    - name: Commit and Push Manifests
+    - name: Commit and Push GitOps
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
