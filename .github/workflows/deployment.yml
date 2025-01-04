@@ -36,7 +36,3 @@ jobs:
         push: true
         tags: |
           ${{ secrets.DOCKER_USERNAME }}/node-application:${{ github.sha }}
-
-    # Optional: Verify image
-    - name: Docker Image Inspect
-      run: docker inspect ${{ secrets.DOCKER_USERNAME }}/node-application:${{ github.sha }}
