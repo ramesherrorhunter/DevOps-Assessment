@@ -45,7 +45,7 @@ jobs:
 
     - name: Update Kubernetes Manifests
       run: |
-        yq eval ".spec.template.spec.containers[0].image = \"${{ secrets.DOCKER_USERNAME }}/node-application:${{ github.sha }}\"" -i k8s/deployment.yaml
+        yq eval ".spec.template.spec.containers[0].image = \"${{ secrets.DOCKER_USERNAME }}/node-application:${{ github.sha }}\"" -i k8s/Deployment.yaml
 
     # Commit and push updated manifests to the GitOps repo
     - name: Commit and Push Manifests
