@@ -39,4 +39,4 @@ jobs:
 
     # Optional: Verify image
     - name: Docker Image Inspect
-      run: ${{ secrets.DOCKER_USERNAME }}/node-application:${{ github.sha }}
+      run: docker inspect ${{ secrets.DOCKER_USERNAME }}/node-application:${{ github.sha }}
