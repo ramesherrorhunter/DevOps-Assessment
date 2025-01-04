@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nodejs-app
-  namespace: node-js 
+  namespace: node-js
 spec:
   replicas: 2
   selector:
@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: nodejs-container
-          image: errorhunter/node-application:3f8dfb116fd57a91e87b360cda256b3e16077f3a
+          image: errorhunter/node-application:bf02479e68abcbcb18b6cd93c2e1e40bfecc92c8
           ports:
             - containerPort: 8080
