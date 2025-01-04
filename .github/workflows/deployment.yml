@@ -32,7 +32,7 @@ jobs:
     - name: Build and Push Docker Image
       uses: docker/build-push-action@v5
       with:
-        context: Dockerfile
+        context: .
         push: true
         tags: |
           ${{ secrets.DOCKER_USERNAME }}/node-application:${{ github.sha }}
