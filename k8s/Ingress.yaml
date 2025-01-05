@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nodejs-ingress
-  namespace: node-js
+  namespace: production
 spec:
   rules:
     - host: domain.com
