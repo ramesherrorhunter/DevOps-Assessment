@@ -22,3 +22,8 @@ metadata:
             allowPrivilegeEscalation: false
             capabilities:
               drop: ["ALL"]
+spec:
+  template:
+    spec:
+      containers:
+        - image: errorhunter/node-application:f8e7d0ad6acd247f079a83b29e054b9e41678862
