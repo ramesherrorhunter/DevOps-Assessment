@@ -15,16 +15,9 @@ spec:
     spec:
       containers:
         - name: nodejs-container
-          image: errorhunter/node-application:cf620e433a70c28bb37aff38b951ae4b0828cc74
+          image: errorhunter/node-application:da4537d9f6f747256e2565d39bbb86ff15256f4c
           ports:
             - containerPort: 8080
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            runAsNonRoot: true
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop: ["ALL"]
           resources:
             requests:
               cpu: "500m"
@@ -32,3 +25,28 @@ spec:
             limits:
               cpu: "1"
               memory: "512Mi"
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readiness
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  revisionHistoryLimit: 3
