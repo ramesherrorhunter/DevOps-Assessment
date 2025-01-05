@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: nodejs-container
-          image: errorhunter/node-application:7fb7b54b5780467db2d78224004ffe10e828a775
+          image: errorhunter/node-application:e970699bcb5f698d4df2963bb9f3a2eeca92d95e
           ports:
             - containerPort: 8080
           securityContext:
