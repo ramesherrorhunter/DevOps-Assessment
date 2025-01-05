@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: nodejs-app
   namespace: production
+spec:
   replicas: 2
   selector:
     matchLabels:
@@ -13,17 +14,12 @@ metadata:
         app: nodejs-app
     spec:
       containers:
-        - name: nodejs-container
-          image: errorhunter/node-application:da4537d9f6f747256e2565d39bbb86ff15256f4c
-          ports:
-            - containerPort: 8080
-          securityContext:
-            runAsNonRoot: true
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop: ["ALL"]
-spec:
-  template:
-    spec:
-      containers:
-        - image: errorhunter/node-application:f8e7d0ad6acd247f079a83b29e054b9e41678862
+      - name: nodejs-container
+        image: errorhunter/node-application:da4537d9f6f747256e2565d39bbb86ff15256f4c
+        ports:
+        - containerPort: 8080
+        securityContext:
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
