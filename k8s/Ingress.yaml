@@ -5,7 +5,7 @@ metadata:
   namespace: production
 spec:
   rules:
-    - host: domain.com
+    - host: ramesh.tutoria
       http:
         paths:
           - pathType: Prefix
