@@ -34,13 +34,13 @@ spec:
               drop: ["ALL"]
           livenessProbe:
             httpGet:
-              path: /healthz
+              path: /
               port: 8080
             initialDelaySeconds: 5
             periodSeconds: 10
           readinessProbe:
             httpGet:
-              path: /readiness
+              path: /
               port: 8080
             initialDelaySeconds: 5
             periodSeconds: 10
