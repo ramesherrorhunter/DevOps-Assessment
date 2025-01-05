@@ -17,8 +17,8 @@ metadata:
           image: errorhunter/node-application:da4537d9f6f747256e2565d39bbb86ff15256f4c
           ports:
             - containerPort: 8080
-spec:
-  template:
-    spec:
-      containers:
-        - image: errorhunter/node-application:339ab34358c14943c3690e93e2886a2a188f01c6
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
