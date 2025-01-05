@@ -14,12 +14,12 @@ spec:
         app: nodejs-app
     spec:
       containers:
-      - name: nodejs-container
-        image: errorhunter/node-application:da4537d9f6f747256e2565d39bbb86ff15256f4c
-        ports:
-        - containerPort: 8080
-        securityContext:
-          runAsNonRoot: true
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop: ["ALL"]
+        - name: nodejs-container
+          image: errorhunter/node-application:7dec6cf7e9f12d3a3ed2cd6af4604d16530c0a63
+          ports:
+            - containerPort: 8080
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
