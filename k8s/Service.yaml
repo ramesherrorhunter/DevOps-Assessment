@@ -4,12 +4,11 @@ metadata:
   name: nodejs-service
   namespace: production
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: nodejs-app
   ports:
     - protocol: TCP
-      port: 8080  
+      port: 80  
       targetPort: 8080
-      nodePort: 30001 
 

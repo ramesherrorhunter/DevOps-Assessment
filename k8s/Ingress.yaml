@@ -5,7 +5,7 @@ metadata:
   namespace: production
 spec:
   rules:
-    - host: ramesh.tutoria
+    - host: ramesh.devops
       http:
         paths:
           - pathType: Prefix
@@ -14,6 +14,6 @@ spec:
               service:
                 name: nodejs-service
                 port:
-                  number: 8080
+                  number: 80
  
 
