@@ -1,0 +1,7 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nodejs-ConfigmAp
+  namespace: production
+data:
+  foo: "bar"
