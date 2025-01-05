@@ -46,7 +46,12 @@ spec:
               path: /
               port: 8080
             initialDelaySeconds: 5
-            periodSeconds: 10
+            periodSeconds: 1
+          envFrom:
+            - configMapRef:
+                name: nodejs-configmap
+            
+            
   strategy:
     type: RollingUpdate
     rollingUpdate:
