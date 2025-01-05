@@ -50,6 +50,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: nodejs-configmap
+            - secretRef:
+                name: nodejs-secret
             
             
   strategy:
