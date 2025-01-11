@@ -13,11 +13,11 @@ spec:
       labels:
         app: nodejs-app
       annotations:
-        description: "Deployment for the Node.js application" 
+        description: "Deployment for the Node.js application"
     spec:
       containers:
         - name: nodejs-container
-          image: errorhunter/node-application:b3debc54d51eb12cf1677a7fffbf55187a181328
+          image: errorhunter/node-application:e8433b608cb4ddc65cd4ea9b5b2681ee3e6fc1b1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -52,8 +52,6 @@ spec:
                 name: nodejs-configmap
             - secretRef:
                 name: nodejs-secret
-            
-            
   strategy:
     type: RollingUpdate
     rollingUpdate:
