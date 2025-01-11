@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: nodejs-container
-          image: errorhunter/node-application:7ad6fd14e493ce6322d99fa8c316248790ada07e
+          image: errorhunter/node-application:da8c9b16a575eb6a84f959b3f8067df962cf5524
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
