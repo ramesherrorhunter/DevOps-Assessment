@@ -1,18 +1,20 @@
-# pulling base image node.js
-FROM node:latest
+# Use a lightweight Node.js image
+FROM node:18-slim
 
-# creating working directory inside the container
+# Set working directory inside the container
 WORKDIR /app
 
-# copy files into working directory
-COPY . /app
+# Copy only package.json and package-lock.json first for dependency installation
+COPY package*.json ./
 
-# install required dependencies
-RUN npm install
+# Install dependencies (using cache for unchanged dependencies)
+RUN npm install --production
 
-# expose the port
+# Copy the rest of the application files
+COPY . .
+
+# Expose the application port
 EXPOSE 8080
 
-# command to run application
+# Command to run the application
 CMD ["node", "server.js"]
-
