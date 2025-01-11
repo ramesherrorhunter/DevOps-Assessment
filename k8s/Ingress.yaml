@@ -5,7 +5,7 @@ metadata:
   namespace: production
 spec:
   rules:
-    - host: ramesh.devops
+    - host: devops.local
       http:
         paths:
           - pathType: Prefix
