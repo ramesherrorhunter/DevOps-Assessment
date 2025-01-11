@@ -5,15 +5,16 @@ metadata:
   namespace: production
 spec:
   rules:
-    - host: devops.local
+    - host: domain.local
       http:
         paths:
           - pathType: Prefix
-            path: /
+            path: / 
             backend:
               service:
                 name: nodejs-service
                 port:
                   number: 80
+
  
 
