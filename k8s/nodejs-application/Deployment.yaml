@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nodejs-app
-  namespace: production
+  namespace: development
 spec:
   # replicas: 2 # updated 2 for HA
   selector:

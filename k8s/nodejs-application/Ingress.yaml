@@ -2,16 +2,17 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: domain-local-ingress
-  namespace: production
+  namespace: development
   annotations:
     cert-manager.io/issuer: "self-signed-issuer"
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   tls:
   - hosts:
-    - domain.local
+    - dev.local
     secretName: domain-local-cert-tls
   rules:
-  - host: domain.local
+  - host: dev.local
     http:
       paths:
       - path: /

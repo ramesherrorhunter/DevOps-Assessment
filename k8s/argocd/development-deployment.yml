@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nodejs-development-app
+  namespace: argocd
+spec:
+  project: default
+
+  # Source of the application (Git repo, path, and revision)
+  source:
+    repoURL: https://github.com/ramesherrorhunter/DevOps-Assessment
+    targetRevision: development
+    path: k8s
+
+  # Destination cluster and namespace
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+
+  # Sync policy (manual)
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true  # Automatically creates the namespace if it doesn't exist
