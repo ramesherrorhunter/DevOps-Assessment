@@ -1,0 +1,10 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: nodejs-pdb
+  namespace: development
+spec:
+  minAvailable: 2  # Ensures at least 2 pods remain available during voluntary disruptions/ node drain
+  selector:
+    matchLabels:
+      app: nodejs-app  # Matches the app label from the Deployment template
