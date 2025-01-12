@@ -16,4 +16,10 @@
 `kubectl port-forward -n argocd svc/argocd-server 9001:80 --address 0.0.0.0`
 
 **To check ingress**
-curl -L domain.com
+curl -L dev.local
+
+
+**To check Load with Apache Benchmark (ab)**
+`sudo apt-get install apache2-utils`
+
+`ab -n 10000000 -c 1000 https://dev.local/`
