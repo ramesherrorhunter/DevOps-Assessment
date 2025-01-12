@@ -2,59 +2,59 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nodejs-app
-  namespace: production
+  namespace: sandbox
 spec:
   # replicas: 2 # updated 2 for HA
   selector:
     matchLabels:
-      app: nodejs-app
+      app: nodejs-app  # Matches the label to associate this Deployment with the pods
   template:
     metadata:
       labels:
-        app: nodejs-app
+        app: nodejs-app  # The label to apply to the pods created by the Deployment
       annotations:
         description: "Deployment for the Node.js application"
     spec:
       containers:
         - name: nodejs-container
-          image: errorhunter/node-application:c94142065c689fe87369015410ddbb2c9fb17043
-          imagePullPolicy: IfNotPresent
+          image: errorhunter/node-application:a6b1c37562cfd9468247742a85c5bc33299e1b32  # Image for the Node.js application
+          imagePullPolicy: IfNotPresent  # Image is pulled only if not present on the node
           ports:
-            - containerPort: 8080
+            - containerPort: 8080  # Exposing port 8080 for the container
           resources:
             requests:
-              cpu: "250m"
-              memory: "256Mi"
+              cpu: "250m"    # Requests 250m CPU (minimum guaranteed CPU)
+              memory: "256Mi" # Requests 256Mi of memory (minimum guaranteed memory)
             limits:
-              cpu: "500m"
-              memory: "512Mi"
+              cpu: "500m"    # Limits the container to 500m CPU
+              memory: "512Mi" # Limits the container to 512Mi memory
           securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            runAsNonRoot: true
-            allowPrivilegeEscalation: false
+            runAsUser: 1000              # Runs the container as user with ID 1000
+            runAsGroup: 1000             # Runs the container as group with ID 1000
+            runAsNonRoot: true           # Ensures the container does not run as root
+            allowPrivilegeEscalation: false  # Disallows privilege escalation
             capabilities:
-              drop: ["ALL"]
+              drop: ["ALL"]              # Drops all unnecessary capabilities to reduce security risks
           livenessProbe:
             httpGet:
               path: /
               port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 10
+            initialDelaySeconds: 5    # Delay before first probe (ensures app is ready)
+            periodSeconds: 10         # Interval between probes
           readinessProbe:
             httpGet:
               path: /
               port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 1
+            initialDelaySeconds: 5    # Delay before first probe (ensures app is ready)
+            periodSeconds: 1          # Interval between probes
           envFrom:
             - configMapRef:
-                name: nodejs-configmap
+                name: nodejs-configmap  # ConfigMap for environment variables
             - secretRef:
-                name: nodejs-secret
+                name: nodejs-secret     # Secret for sensitive environment variables
   strategy:
-    type: RollingUpdate
+    type: RollingUpdate  # Uses RollingUpdate strategy for smooth deployment updates
     rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1
-  revisionHistoryLimit: 3
+      maxUnavailable: 1    # Allows only 1 pod to be unavailable at a time during updates
+      maxSurge: 1          # Allows 1 extra pod to be created during updates for smooth transition
+  revisionHistoryLimit: 3  # Keeps the last 3 versions of the Deployment for rollback purposes
