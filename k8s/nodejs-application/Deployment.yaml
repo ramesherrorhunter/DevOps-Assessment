@@ -7,54 +7,54 @@ spec:
   # replicas: 2 # updated 2 for HA
   selector:
     matchLabels:
-      app: nodejs-app  # Matches the label to associate this Deployment with the pods
+      app: nodejs-app # Matches the label to associate this Deployment with the pods
   template:
     metadata:
       labels:
-        app: nodejs-app  # The label to apply to the pods created by the Deployment
+        app: nodejs-app # The label to apply to the pods created by the Deployment
       annotations:
         description: "Deployment for the Node.js application"
     spec:
       containers:
         - name: nodejs-container
-          image: errorhunter/node-application:a6b1c37562cfd9468247742a85c5bc33299e1b32  # Image for the Node.js application
-          imagePullPolicy: IfNotPresent  # Image is pulled only if not present on the node
+          image: errorhunter/node-application:eb4537dc17cfa397d35e4f16d3e27d3c19fdb4d0 # Image for the Node.js application
+          imagePullPolicy: IfNotPresent # Image is pulled only if not present on the node
           ports:
-            - containerPort: 8080  # Exposing port 8080 for the container
+            - containerPort: 8080 # Exposing port 8080 for the container
           resources:
             requests:
-              cpu: "250m"    # Requests 250m CPU (minimum guaranteed CPU)
+              cpu: "250m" # Requests 250m CPU (minimum guaranteed CPU)
               memory: "256Mi" # Requests 256Mi of memory (minimum guaranteed memory)
             limits:
-              cpu: "500m"    # Limits the container to 500m CPU
+              cpu: "500m" # Limits the container to 500m CPU
               memory: "512Mi" # Limits the container to 512Mi memory
           securityContext:
-            runAsUser: 1000              # Runs the container as user with ID 1000
-            runAsGroup: 1000             # Runs the container as group with ID 1000
-            runAsNonRoot: true           # Ensures the container does not run as root
-            allowPrivilegeEscalation: false  # Disallows privilege escalation
+            runAsUser: 1000 # Runs the container as user with ID 1000
+            runAsGroup: 1000 # Runs the container as group with ID 1000
+            runAsNonRoot: true # Ensures the container does not run as root
+            allowPrivilegeEscalation: false # Disallows privilege escalation
             capabilities:
-              drop: ["ALL"]              # Drops all unnecessary capabilities to reduce security risks
+              drop: ["ALL"] # Drops all unnecessary capabilities to reduce security risks
           livenessProbe:
             httpGet:
               path: /
               port: 8080
-            initialDelaySeconds: 5    # Delay before first probe (ensures app is ready)
-            periodSeconds: 10         # Interval between probes
+            initialDelaySeconds: 5 # Delay before first probe (ensures app is ready)
+            periodSeconds: 10 # Interval between probes
           readinessProbe:
             httpGet:
               path: /
               port: 8080
-            initialDelaySeconds: 5    # Delay before first probe (ensures app is ready)
-            periodSeconds: 1          # Interval between probes
+            initialDelaySeconds: 5 # Delay before first probe (ensures app is ready)
+            periodSeconds: 1 # Interval between probes
           envFrom:
             - configMapRef:
-                name: nodejs-configmap  # ConfigMap for environment variables
+                name: nodejs-configmap # ConfigMap for environment variables
             - secretRef:
-                name: nodejs-secret     # Secret for sensitive environment variables
+                name: nodejs-secret # Secret for sensitive environment variables
   strategy:
-    type: RollingUpdate  # Uses RollingUpdate strategy for smooth deployment updates
+    type: RollingUpdate # Uses RollingUpdate strategy for smooth deployment updates
     rollingUpdate:
-      maxUnavailable: 1    # Allows only 1 pod to be unavailable at a time during updates
-      maxSurge: 1          # Allows 1 extra pod to be created during updates for smooth transition
-  revisionHistoryLimit: 3  # Keeps the last 3 versions of the Deployment for rollback purposes
+      maxUnavailable: 1 # Allows only 1 pod to be unavailable at a time during updates
+      maxSurge: 1 # Allows 1 extra pod to be created during updates for smooth transition
+  revisionHistoryLimit: 3 # Keeps the last 3 versions of the Deployment for rollback purposes
